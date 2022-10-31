@@ -9,7 +9,7 @@ export const referenceList = [
     type: "info",
     description: "Historically black colleges and universities (HBCUs) are institutions of higher education in the United States that were established before the Civil Rights Act of 1964 with the intention of primarily serving the African-American community. Most of these institutions were founded in the years after the American Civil War and are concentrated in the Southern United States.",
     externalLink: "https://en.wikipedia.org/wiki/Historically_black_colleges_and_universities",
-    inCart: true
+    inCart: false
   },
   {
     id: 2,
@@ -21,7 +21,7 @@ export const referenceList = [
     type: "biography",
     description: "Ted Poston, the first African American journalist to work at a mainstream newspaper, was born on July 4, 1906, in Hopkinsville, Kentucky.  His mother, Mollie Cox, died when he was ten and he was raised mostly by his eight older siblings, while his father, Ephraim, taught at the Kentucky State Industrial College for Negroes (now Kentucky State University) in Frankfurt, over two hundred miles away.",
     externalLink: "https://www.blackpast.org/african-american-history/poston-ted-1906-1974/",
-    inCart: true
+    inCart: false
   },
   {
     id: 3,
@@ -57,7 +57,7 @@ export const referenceList = [
     type: "History",
     description: "From the Birmingham jail, where he was imprisoned as a participant in nonviolent demonstrations against segregation, Dr. Martin Luther King, Jr., wrote in longhand the letter which follows. It was his response to a public statement of concern and caution issued by eight white religious leaders of the South. Dr. King, who was born in 1929, did his undergraduate work at  Morehouse College; attended the integrated Crozer Theological Seminary in Chester, Pennsylvania, one of six black pupils among a hundred students, and the president of his class; and won a fellowship to Boston University for his Ph.D. ",
     externalLink: "https://www.csuchico.edu/iege/_assets/documents/susi-letter-from-birmingham-jail.pdf",
-    inCart: true
+    inCart: false
   },
   {
     id: 6,
