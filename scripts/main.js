@@ -18,22 +18,36 @@ const renderCards = (array) => {
 // .findIndex() & (.includes() - string method)
 const toggleCart = (event) => {
   if (event.target.id.includes("fav-btn")) {
-   console.log('Clicked Fav btn')
+    const [, id] = event.target.id.split('--');
+    //converts the id to a number as it was a string before
+    const index = referenceList.findIndex(taco => taco.id === Number(id))
+    //console.log(id);
+    referenceList[index].inCart = !referenceList[index].inCart
+    cartTotal();
+    renderCards(referenceList);
   }
 }
 
 // SEARCH
 // .filter()
+//uses a call back in start app
 const search = (event) => {
-  const eventLC = event.target.value.toLowerCase();
-  console.log(eventLC)
+  const userInput = event.target.value.toLowerCase();
+  const searchResult = referenceList.filter(taco => 
+    taco.title.toLowerCase().includes(userInput) ||
+    taco.author.toLowerCase().includes(userInput) || 
+    taco.description.toLowerCase().includes(userInput) 
+  )
+  console.log(userInput);
+  renderCards(searchResult);
 }
 
 // BUTTON FILTER
 // .filter() & .reduce() &.sort() - chaining
 const buttonFilter = (event) => {
   if(event.target.id.includes('free')) {
-    //console.log('FREE')
+    console.log('FREE')
+    //item in the statement here is taco
     const free = referenceList.filter(item => item.price <= 0);
     renderCards(free); 
   }
@@ -48,7 +62,9 @@ const buttonFilter = (event) => {
     console.log('books!')
   }
   if(event.target.id.includes('clearFilter')) {
-    console.log('clearFilter')
+    console.log('clearFilter');
+    renderCards(referenceList);
+
   }
   if(event.target.id.includes('productList')) {
     let table = `<table class="table table-dark table-striped" style="width: 600px">
@@ -62,7 +78,7 @@ const buttonFilter = (event) => {
     <tbody>
     `;
     
-    productList().forEach(item => {
+    productList().sort((a, b) => a.type.localeCompare(b.type)).forEach(item => {
       table += tableRow(item);
     });
 
@@ -76,14 +92,28 @@ const buttonFilter = (event) => {
 // CALCULATE CART TOTAL
 // .reduce() & .some()
 const cartTotal = () => {
-  const total = 0
+  const cart = referenceList.filter(item => item.inCart);
+  const total = cart.reduce((value1, value2) => value1 + value2.price, 0)
+  const free = cart.some(item => item.price <= 0);
   document.querySelector("#cartTotal").innerHTML = total.toFixed(2);
-}
+
+  if (free) {
+    document.querySelector("#includes-free").innerHTML = 'INCLUDES FREE ITEMS'
+    } else {
+      document.querySelector("#includes-free").innerHTML = ''
+    }
+  }
+
 
 // RESHAPE DATA TO RENDER TO DOM
 // .map()
 const productList = () => {
-  return [{ title: "SAMPLE TITLE", price: 45.00, type: "SAMPLE TYPE" }]
+  return referenceList.map(item => ({
+    title: item.title, 
+    price: item.price, 
+    type: item.type
+  }));
+  //[{ title: "SAMPLE TITLE", price: 45.00, type: "SAMPLE TYPE" }]
 }
 
 
@@ -97,7 +127,7 @@ const startApp = () => {
   // SELECT THE CARD DIV
   document.querySelector('#cards').addEventListener('click', toggleCart);
 
-  // SELECT THE SEARCH INPUT
+  // SELECT THE SEARCH INPUT, this is the callback that the search is using.
   document.querySelector('#searchInput').addEventListener('keyup', search)
 
   // SELECT BUTTON ROW DIV
